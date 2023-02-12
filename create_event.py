@@ -6,7 +6,9 @@ import pytz
 endpoint = "https://graph.microsoft.com/v1.0/me/events"
 
 # Access token for authentication
-access_token = "your_access_token"
+# Load the access token from the text file
+with open("private_access_token.txt", "r") as file:
+    access_token = file.read().strip()
 
 # Get the current system time
 now = datetime.datetime.now(pytz.UTC)
