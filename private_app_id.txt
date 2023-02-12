@@ -1,0 +1,3 @@
+YOUR_APP_ID
+# register app on azure:
+# https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/RegisteredApps
