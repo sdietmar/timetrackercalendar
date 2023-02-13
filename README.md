@@ -41,11 +41,10 @@ and... it turns out you need an Azure account, not just win365, plus you need to
 chatGPT to the rescue! Let us play and see what it can do.
 took me 10 minutes to ask for code step by step. (dry run, i did not dare to actually try it just yet.)
 conversation is available here: *chatPGT_conversation.md*
-ChatGPT Queries also available via GIT commit history.
 
 ## authentication
 the chatGPT generated authentication part is wrong and not working.
-running tutorial from https://learn.microsoft.com/en-us/graph/tutorials/python and https://developer.microsoft.com/en-us/graph/quick-start?state=option-python . Provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
+running tutorial from https://learn.microsoft.com/en-us/graph/tutorials/python and https://developer.microsoft.com/en-us/graph/quick-start?state=option-python provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
 
 this example was not working - but after i set up the azure project via the quickstart, it seems to work.
 https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/
@@ -53,8 +52,17 @@ and it remembers the user and does not ask for login data every time.
 
 display acces token and decode content online: https://jwt.ms/  (for debug reasons only)
 
+## my take away
+1. chatGPT is awesome. it made it look easy enough that i started the project
+2. web authentication sucks. API changes all the time (azure graph, ms graph, MSAL, access_tokens). serverside aint straight forward either - read up on that stuff, and expect to spend half a day. it took me about 7hours to get the authentication working - without any experience on that topic.
+3. google is still your friend. look for code examples for a given topic. i cloned and started 3 git repos from different sources to see how it works and which one actuallly worked with the server.
+4. testing would be nice. thought this app is simpe enough to do without testing... but when changing to config.cfg it messed up the scope and i did not notice till much later.
+5. chatGPT code is very buggy. variables that get reused for different purposes, plain wrong info, timezone madness with different libraries, format conversion misunderstanding, syntax issues so it throws error when running,... 5hours to iron out all the stuff that i did not know i need to know.
+6. user still needs to know how to debug, research and google, read an API doc, and generally understand what code does
+7. chatgpt is a nice companion to have. it is definetly friendlier than stackoverflow. and it never makes you feel dumb and it never insults you.
+
 ## environment
 i run this on a Win10 machine. Python 3.8.0
-´´´bash
+```bash
 python -m pip install -r requirements.txt
-´´´
+```
