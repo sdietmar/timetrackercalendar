@@ -4,6 +4,8 @@ import pytz
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json
+import PySimpleGUI as sg
+import sys
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -47,6 +49,36 @@ if response.status_code != 200:
 event = response.json()
 print("Event retrieved successfully:", event)
 
+
+# Calculate the elapsed time since the event start
+start_time = datetime.datetime.strptime(event["start"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0").astimezone(datetime.timezone.utc)
+current_time = datetime.datetime.now(datetime.timezone.utc)
+elapsed_time = current_time - start_time
+hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
+minutes, _ = divmod(remainder, 60)
+
+# Create the PySimpleGUI popup
+layout = [
+    [sg.Text("Event Subject: " + event["subject"])],
+    [sg.Text("Elapsed Time: {} hours {} minutes".format(hours, minutes))],
+    [sg.Text("Event Body:", size=(15, 1)), sg.InputText("")],
+    [sg.Button("Update Event"), sg.Button("Cancel")]
+]
+
+window = sg.Window("Update Event", layout)
+
+# Show the popup and get the user input
+while True:
+    clickevent, values = window.read()
+    if clickevent in (None, "Cancel"):
+      # exits the program
+      sys.exit("User aborted... closing without any changes")
+    if clickevent == "Update Event":
+      print(values[0])
+      break
+window.close()
+
+print(values[0]) # i dont understand why this variable is available here? not part of the loop?
 
 current_time = datetime.datetime.now(datetime.timezone.utc)
 
