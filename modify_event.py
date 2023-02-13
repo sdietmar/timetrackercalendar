@@ -47,3 +47,24 @@ if response.status_code != 200:
 event = response.json()
 print("Event retrieved successfully:", event)
 
+
+current_time = datetime.datetime.now(datetime.timezone.utc)
+
+# Make a PATCH request to the Microsoft Graph API to update the event
+body = {
+    "body": {
+        "content": "Stuff i did"
+    },
+    "end": {
+        "dateTime": current_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+        "timeZone": "UTC"
+    }
+}
+
+response = requests.patch(endpoint, headers=headers, json=body)
+
+# Check the response status code
+if response.status_code != 200:
+    raise Exception("Failed to update event: " + response.text)
+
+print("Event updated successfully")
