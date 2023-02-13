@@ -9,7 +9,7 @@ config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
 
 APP_ID = config['azure']['appId']
-SCOPES = config['azure']['graphUserScopes']
+SCOPES = ['Calendars.ReadWrite']
 
 
 # this stuff works. could not get ms examples to work with cache
