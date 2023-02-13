@@ -1,6 +1,5 @@
 import requests
 import datetime
-import pytz
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json

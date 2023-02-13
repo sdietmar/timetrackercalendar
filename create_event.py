@@ -1,6 +1,5 @@
 import requests
 import datetime
-import pytz
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json
@@ -28,7 +27,7 @@ endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events'
 
 
 # Get the current system time
-now = datetime.datetime.now(pytz.UTC)
+now = datetime.datetime.now(datetime.timezone.UTC)
 # standardize to UTC.. so it is always true. since we always create it from NOW.
 
 # Set the start and end time for the event
