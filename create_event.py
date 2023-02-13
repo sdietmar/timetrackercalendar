@@ -2,11 +2,14 @@ import requests
 import datetime
 import pytz
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
+import configparser
 
-with open("private_app_id.txt", "r") as file:
-    APP_ID = file.read().strip()
+# load config file (offloaded for privacy reasons)
+config = configparser.ConfigParser()
+config.read(['config.cfg', 'config.dev.cfg'])
 
-SCOPES = ['Calendars.ReadWrite']
+APP_ID = config['azure']['appId']
+SCOPES = config['azure']['graphUserScopes']
 
 
 # this stuff works. could not get ms examples to work with cache
@@ -18,7 +21,9 @@ headers = {
 }
 
 # Microsoft Graph endpoint for creating an event
-endpoint = "https://graph.microsoft.com/v1.0/me/events"
+CAL_ID = config['calendar']['calId']
+endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events'
+# f'/users/{id | userPrincipalName}/calendars/{id}/events
 
 
 # Get the current system time

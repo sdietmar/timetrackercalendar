@@ -51,6 +51,8 @@ this example was not working - but after i set up the azure project via the quic
 https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/
 and it remembers the user and does not ask for login data every time.
 
+display acces token and decode content online: https://jwt.ms/  (for debug reasons only)
+
 ## environment
 i run this on a Win10 machine. Python 3.8.0
 ´´´bash
