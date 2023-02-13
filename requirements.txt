@@ -1,0 +1,5 @@
+requests
+datetime
+msal
+configparser
+PySimpleGUI
