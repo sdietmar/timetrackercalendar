@@ -51,9 +51,16 @@ print("Event retrieved successfully:", event)
 
 
 # Calculate the elapsed time since the event start
-start_time = datetime.datetime.strptime(event["start"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0").astimezone(datetime.timezone.utc)
+start_time_notz = datetime.datetime.strptime(event["start"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0")
+start_time = start_time_notz.replace(tzinfo=datetime.timezone.utc)
 current_time = datetime.datetime.now(datetime.timezone.utc)
 elapsed_time = current_time - start_time
+#timezone madness. i hardcode/standardize everything to UTC!
+#print (event["start"]["dateTime"])
+#print(start_time)
+#print(start_time_notz)
+#print(current_time)
+#print(elapsed_time)
 hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
 minutes, _ = divmod(remainder, 60)
 
