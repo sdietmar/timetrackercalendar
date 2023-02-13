@@ -85,7 +85,7 @@ current_time = datetime.datetime.now(datetime.timezone.utc)
 # Make a PATCH request to the Microsoft Graph API to update the event
 body = {
     "body": {
-        "content": "Stuff i did"
+        "content": values[0]
     },
     "end": {
         "dateTime": current_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
