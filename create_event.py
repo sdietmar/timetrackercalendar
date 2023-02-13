@@ -3,6 +3,7 @@ import datetime
 import pytz
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
+import json
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -28,6 +29,7 @@ endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events'
 
 # Get the current system time
 now = datetime.datetime.now(pytz.UTC)
+# standardize to UTC.. so it is always true. since we always create it from NOW.
 
 # Set the start and end time for the event
 start_time = now.isoformat()
@@ -56,3 +58,11 @@ if response.status_code != 201:
 # Get the newly created event from the response
 event = response.json()
 print("Event created successfully:", event)
+
+# Save the event ID to a dictionary
+event_data = {"event_id": event["id"]}
+
+# Write the event data to a JSON file
+with open("event.json", "w") as file:
+    json.dump(event_data, file)
+
