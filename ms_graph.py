@@ -28,6 +28,7 @@ def generate_access_token(app_id, scopes):
     if accounts:
         # load the session
         token_response = client.acquire_token_silent(scopes, accounts[0])
+        print(" account connected!")
     else:
         # authenticate your account as usual
         flow = client.initiate_device_flow(scopes=scopes)

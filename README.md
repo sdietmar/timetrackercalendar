@@ -34,6 +34,8 @@ since i use *Microsoft365* (shame on me: it should be an FOSS solution, but oh m
 Looks like i need to the use *Graph REST API*. Documentation is straight forward.
 https://learn.microsoft.com/en-us/graph/api/event-update?view=graph-rest-1.0&tabs=http
 but.... code examples are not available in python.
+and... it turns out you need an Azure account, not just win365, plus you need to register the app plus configure a bunch of things. looks like the app-creator needs to register the app. plus the user still needs to login - what happened to good old app access keys? alternatively i could create a dameon- but that one could access everything in my organziation, not just my information.
+
 
 ## chatGPT
 chatGPT to the rescue! Let us play and see what it can do.
@@ -41,5 +43,16 @@ took me 10 minutes to ask for code step by step. (dry run, i did not dare to act
 conversation is available here: *chatPGT_conversation.md*
 ChatGPT Queries also available via GIT commit history.
 
+## authentication
+the chatGPT generated authentication part is wrong and not working.
+running tutorial from https://learn.microsoft.com/en-us/graph/tutorials/python and https://developer.microsoft.com/en-us/graph/quick-start?state=option-python . Provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
+
+this example was not working - but after i set up the azure project via the quickstart, it seems to work.
+https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/
+and it remembers the user and does not ask for login data every time.
+
 ## environment
 i run this on a Win10 machine. Python 3.8.0
+´´´bash
+python -m pip install -r requirements.txt
+´´´
