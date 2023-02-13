@@ -20,19 +20,26 @@
   - ask me for details about the work in this simple popup window
   - UPDATE event(eventId) with current_time as end_time and comment as body.content
 
+## Usage
+
+1. setup app in [azure](https://developer.microsoft.com/en-us/graph/quick-start?state=option-python) and copy the `APP_ID` into the `config.cfg`
+2. create an extra outlook calendar (if you don't want to use the default one)
+3. install py modules `python -m pip install -r requirements.txt`
+4. run `python get_calendar_id.py` and get the `id` for the desired calendar into `config.cfg`
+5. run `python create_event.py "ProjectName"` to start tracking time
+6. run `python modify_event.py` to stop the tracking and enter details of what you did
+7. marvel at the calendar that is now even busier than before
 
 ## gmail
 Using *gmail* sounded like the simplest answer:
-there is a good API description and *python code examples*:
-https://developers.google.com/calendar/api/v3/reference/events/insert#examples
-it links to Python quickstart on how to setup the environment:
-https://developers.google.com/calendar/quickstart/python
+there is a good API description and [python code examples](https://developers.google.com/calendar/api/v3/reference/events/insert#examples)
+it links to Python [quickstart](https://developers.google.com/calendar/quickstart/python) on how to setup the environment.
+
 and that is where i stopped, because it asked for a *google cloud project* and a *google workspace*. it sounded too complicated and like something that might ask for my credit card.
 
 ## outlook
 since i use *Microsoft365* (shame on me: it should be an FOSS solution, but oh my) let us try this.
-Looks like i need to the use *Graph REST API*. Documentation is straight forward.
-https://learn.microsoft.com/en-us/graph/api/event-update?view=graph-rest-1.0&tabs=http
+Looks like i need to the use *Graph REST API*. [Documentation](https://learn.microsoft.com/en-us/graph/api/event-update?view=graph-rest-1.0&tabs=http) is straight forward.
 but.... code examples are not available in python.
 and... it turns out you need an Azure account, not just win365, plus you need to register the app plus configure a bunch of things. looks like the app-creator needs to register the app. plus the user still needs to login - what happened to good old app access keys? alternatively i could create a dameon- but that one could access everything in my organziation, not just my information.
 
