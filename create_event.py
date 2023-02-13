@@ -3,6 +3,7 @@ import datetime
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json
+import sys
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -34,9 +35,19 @@ now = datetime.datetime.now(datetime.timezone.UTC)
 start_time = now.isoformat()
 end_time = (now + datetime.timedelta(hours=2)).isoformat()
 
+# Get the event subject/titel from the command line
+if len(sys.argv) < 2:
+    #print("Usage: python create_event.py <subject>")
+    subject = "Work"
+else:
+    subject = sys.argv[1]
+
 # Event details
 event = {
-    "subject": "Sample event",
+    "subject": subject,
+    "body": {
+        "contentType": "text"
+    },
     "start": {
         "dateTime": start_time,
         "timeZone": "UTC"
@@ -44,7 +55,9 @@ event = {
     "end": {
         "dateTime": end_time,
         "timeZone": "UTC"
-    }
+    },
+    "isReminderOn": False,
+    "categories": ["timetracker"]
 }
 
 # Make a POST request to the Microsoft Graph API to create the event
