@@ -28,7 +28,7 @@ endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events'
 
 
 # Get the current system time
-now = datetime.datetime.now(datetime.timezone.UTC)
+now = datetime.datetime.now(datetime.timezone.utc)
 # standardize to UTC.. so it is always true. since we always create it from NOW.
 
 # Set the start and end time for the event
