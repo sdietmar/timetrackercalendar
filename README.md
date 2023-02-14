@@ -58,10 +58,10 @@ conversation is available here: *chatPGT_conversation.md*
 
 ## authentication
 the chatGPT generated authentication part is wrong and not working.
-running tutorial from https://learn.microsoft.com/en-us/graph/tutorials/python and https://developer.microsoft.com/en-us/graph/quick-start?state=option-python provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
+running [tutorial](https://learn.microsoft.com/en-us/graph/tutorials/python) and [quickstart](https://developer.microsoft.com/en-us/graph/quick-start?state=option-python) provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
 
-this example was not working - but after i set up the azure project via the quickstart, it seems to work.
-https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/
+the following example was not working - but after i set up the azure project via the quickstart, it seems to work.
+[example from learndataanalysis.org](https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/)
 and it remembers the user and does not ask for login data every time.
 
 display acces token and decode content online: https://jwt.ms/  (for debug reasons only)
@@ -77,6 +77,3 @@ display acces token and decode content online: https://jwt.ms/  (for debug reaso
 
 ## environment
 i run this on a Win10 machine. Python 3.8.0
-```bash
-python -m pip install -r requirements.txt
-```
