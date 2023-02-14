@@ -1,6 +1,6 @@
 # Project Time Tracking using Calendar Events
 
-## Requirements
+## Requirements and Functionality
 
 - integrate with calendar
 - only use standard calendar features
@@ -26,9 +26,16 @@
 2. create an extra outlook calendar (if you don't want to use the default one)
 3. install py modules `python -m pip install -r requirements.txt`
 4. run `python get_calendar_id.py` and get the `id` for the desired calendar into `config.cfg`
-5. run `python create_event.py "ProjectName"` to start tracking time
-6. run `python modify_event.py` to stop the tracking and enter details of what you did
-7. marvel at the calendar that is now even busier than before
+5. run `python create_event.py "timetrackerapp"` to start tracking time
+6. -- authenticate as needed with account you want to use (manually copy user_code to browser)
+<img src="screenshots/auth_gui.png" width="400">
+<img src="screenshots/auth_web.png" width="400">
+<img src="screenshots/auth_web_confirmation_DE.png" width="400">
+7. run `python modify_event.py` to stop the tracking and enter details of what you did
+<img src="screenshots/gui_update_event.png" width="400">
+8. marvel at the calendar that is now even busier than before
+<img src="screenshots/calendar_final.png" width="400">
+
 
 ## gmail
 Using *gmail* sounded like the simplest answer:
