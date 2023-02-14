@@ -1,6 +1,6 @@
 # Project Time Tracking using Calendar Events
 
-## Requirements
+## Requirements and Functionality
 
 - integrate with calendar
 - only use standard calendar features
@@ -26,9 +26,16 @@
 2. create an extra outlook calendar (if you don't want to use the default one)
 3. install py modules `python -m pip install -r requirements.txt`
 4. run `python get_calendar_id.py` and get the `id` for the desired calendar into `config.cfg`
-5. run `python create_event.py "ProjectName"` to start tracking time
-6. run `python modify_event.py` to stop the tracking and enter details of what you did
-7. marvel at the calendar that is now even busier than before
+5. run `python create_event.py "timetrackerapp"` to start tracking time
+6. -- authenticate as needed with account you want to use (manually copy user_code to browser)
+<img src="screenshots/auth_gui.png" width="400">
+<img src="screenshots/auth_web.png" width="400">
+<img src="screenshots/auth_web_confirmation_DE.png" width="400">
+7. run `python modify_event.py` to stop the tracking and enter details of what you did
+<img src="screenshots/gui_update_event.png" width="400">
+8. marvel at the calendar that is now even busier than before
+<img src="screenshots/calendar_final.png" width="400">
+
 
 ## gmail
 Using *gmail* sounded like the simplest answer:
@@ -51,10 +58,10 @@ conversation is available here: *chatPGT_conversation.md*
 
 ## authentication
 the chatGPT generated authentication part is wrong and not working.
-running tutorial from https://learn.microsoft.com/en-us/graph/tutorials/python and https://developer.microsoft.com/en-us/graph/quick-start?state=option-python provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
+running [tutorial](https://learn.microsoft.com/en-us/graph/tutorials/python) and [quickstart](https://developer.microsoft.com/en-us/graph/quick-start?state=option-python) provides a nice setup of the azure project... but the code example is complex and i can not get to the deviceId to post to the user (only on command line).
 
-this example was not working - but after i set up the azure project via the quickstart, it seems to work.
-https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/
+the following example was not working - but after i set up the azure project via the quickstart, it seems to work.
+[example from learndataanalysis.org](https://learndataanalysis.org/source-code-create-and-delete-outlook-calendar-events-using-microsoft-graph-api-in-python/)
 and it remembers the user and does not ask for login data every time.
 
 display acces token and decode content online: https://jwt.ms/  (for debug reasons only)
@@ -70,6 +77,3 @@ display acces token and decode content online: https://jwt.ms/  (for debug reaso
 
 ## environment
 i run this on a Win10 machine. Python 3.8.0
-```bash
-python -m pip install -r requirements.txt
-```

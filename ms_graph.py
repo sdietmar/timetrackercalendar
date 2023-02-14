@@ -2,6 +2,7 @@
 import webbrowser
 from datetime import datetime
 import json
+import PySimpleGUI as sg
 import os
 import msal
 
@@ -33,6 +34,20 @@ def generate_access_token(app_id, scopes):
         # authenticate your account as usual
         flow = client.initiate_device_flow(scopes=scopes)
         print('user_code: ' + flow['user_code'])
+
+        # Create the PySimpleGUI popup
+        layout = [
+            [sg.Text("user_code: " + flow['user_code'])],
+            [sg.Text("user_code: ", size=(15, 1)), sg.InputText(flow['user_code'])],
+            [sg.Button("ok")]
+        ]
+        window = sg.Window("Authentication", layout)
+        # Show the popup and get the user input
+        while True:
+            clickevent, values = window.read()
+            if clickevent in (None, "ok"):
+                break
+        window.close()
         webbrowser.open('https://microsoft.com/devicelogin')
         token_response = client.acquire_token_by_device_flow(flow)
 
