@@ -37,6 +37,23 @@
 <img src="screenshots/calendar_final.png" width="400">
 
 
+## Usage with Streamdeck
+
+Streamdeck by Elgato is a fancy shortcut keyboard with configurable screen an buttons.
+Made for Video Streamer, i use it extensively for repetive work (starting virtual machines and configuring them, ssh-ing into server to update packages,..), becasue this little thing sits on my desktop anyways.
+
+and now i use it to also track time. there is a button for every single project i am working on. once pressed it *start logging* this project (remember it's just a command line parameter that defines the project_name).
+
+and there is one button to *stop the last created* calenderevent and lets me input details about what i did. note that i modify the file to use `pyw` extension and run it with `pythonw.exe` - this allows me to run the modify command without seeing ugly command line prompts.
+
+i still use `py` with terminal opening up, because that way i know that it worked.
+
+
+<img src="screenshots/streamdeck_config.png" width="400">
+
+setting it up was not the most straigth forward thing. because the py script needs to run in the py scrip directory (because it uses other files). BarRaider made an awesome [advanced app launcher](https://github.com/BarRaider/streamdeck-advancedlauncher) that lets you set the *directory* and the *arguments* for the script.
+
+
 ## gmail
 Using *gmail* sounded like the simplest answer:
 there is a good API description and [python code examples](https://developers.google.com/calendar/api/v3/reference/events/insert#examples)
