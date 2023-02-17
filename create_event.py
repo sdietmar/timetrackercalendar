@@ -4,6 +4,7 @@ from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json
 import sys
+import time
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -69,7 +70,7 @@ if response.status_code != 201:
 
 # Get the newly created event from the response
 event = response.json()
-print("Event created successfully:", event)
+print("Started logging time for:", subject)
 
 # Save the event ID to a dictionary
 event_data = {"event_id": event["id"]}
@@ -78,3 +79,4 @@ event_data = {"event_id": event["id"]}
 with open("event.json", "w") as file:
     json.dump(event_data, file)
 
+time.sleep(2)    # Pause to give user time to read
