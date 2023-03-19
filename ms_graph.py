@@ -18,9 +18,6 @@ def generate_access_token(app_id, scopes):
         token_detail = json.load(open('ms_graph_api_token.json',))
         token_detail_key = list(token_detail['AccessToken'].keys())[0]
         token_expiration = datetime.fromtimestamp(int(token_detail['AccessToken'][token_detail_key]['expires_on']))
-        if datetime.now() > token_expiration:
-            os.remove('ms_graph_api_token.json')
-            access_token_cache = msal.SerializableTokenCache()
 
     # assign a SerializableTokenCache object to the client instance
     client = msal.PublicClientApplication(client_id=app_id, token_cache=access_token_cache)
