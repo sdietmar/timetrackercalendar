@@ -47,6 +47,7 @@ if response.status_code != 200:
 # Get the updated event from the response
 event = response.json()
 print("Event retrieved successfully:", event)
+print(event["subject"] + "  " + event["bodyPreview"])
 
 
 # Calculate the elapsed time since the event start
@@ -75,25 +76,28 @@ layout = [
 window = sg.Window("Update Event", layout, finalize=True)
 window['-BODY-'].bind("<Return>", "_Enter") # Binding key event
 
-# Show the popup and get the user input
+performed_work = ""
+# wait for user input
 while True:
     clickevent, values = window.read()
+    #print(clickevent)
+    #print(values)
     if clickevent in (None, "Cancel"):
       # exits the program
       sys.exit("User aborted... closing without any changes")
     if clickevent in ("Update Event", "-BODY-" + "_Enter"):
-      print(values[0])
+      performed_work = values["-BODY-"]
       break
 window.close()
 
-print(values[0]) # i dont understand why this variable is available here? not part of the loop?
+print(performed_work)
 
 current_time = datetime.datetime.now(datetime.timezone.utc)
 
 # Make a PATCH request to the Microsoft Graph API to update the event
 body = {
     "body": {
-        "content": values[0]
+        "content": performed_work
     },
     "end": {
         "dateTime": current_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
