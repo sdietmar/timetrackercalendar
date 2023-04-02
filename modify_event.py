@@ -72,7 +72,8 @@ layout = [
     [sg.Button("Update Event"), sg.Button("Cancel")]
 ]
 
-window = sg.Window("Update Event", layout)
+window = sg.Window("Update Event", layout, finalize=True)
+window['-BODY-'].bind("<Return>", "_Enter") # Binding key event
 
 # Show the popup and get the user input
 while True:
@@ -80,7 +81,7 @@ while True:
     if clickevent in (None, "Cancel"):
       # exits the program
       sys.exit("User aborted... closing without any changes")
-    if clickevent == "Update Event":
+    if clickevent in ("Update Event", "-BODY-" + "_Enter"):
       print(values[0])
       break
 window.close()
