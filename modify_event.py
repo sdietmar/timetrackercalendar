@@ -67,7 +67,8 @@ minutes, _ = divmod(remainder, 60)
 layout = [
     [sg.Text("Event Subject: " + event["subject"])],
     [sg.Text("Elapsed Time: {} hours {} minutes".format(hours, minutes))],
-    [sg.Text("Event Body:", size=(15, 1)), sg.InputText("")],
+    [sg.Text("Performed Work:")],
+    [sg.Multiline(event["bodyPreview"], key="-BODY-", size=(60,5), enable_events=True)],
     [sg.Button("Update Event"), sg.Button("Cancel")]
 ]
 
