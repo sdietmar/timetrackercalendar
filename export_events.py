@@ -63,3 +63,24 @@ while endpoint:
 print("Received a total of "+ str(len(events)) + " events")
 # print(json.dumps(events, indent=2))
 print("")
+
+total_time = timedelta()
+
+for event in events:
+    # Calculate the elapsed time since the event start
+    start_time_notz = datetime.strptime(event["start"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0")
+    start_time = start_time_notz.replace(tzinfo=timezone.utc)
+    end_time_notz = datetime.strptime(event["end"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0")
+    end_time = end_time_notz.replace(tzinfo=timezone.utc)
+    elapsed_time = end_time - start_time
+    hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
+    minutes, _ = divmod(remainder, 60)
+    total_time += elapsed_time
+
+    print(
+        event["subject"] + "; " +
+        event["bodyPreview"] + "; " +
+        event["start"]["dateTime"][0:10] + "; " +
+        str(int(int(elapsed_time.total_seconds())/60)) + "; " +
+        f"{int(hours)} hours, {int(minutes)} minutes"
+    )
