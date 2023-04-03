@@ -40,3 +40,7 @@ else:
     subject = sys.argv[1]
     endpoint += f"$filter=startsWith(subject,'{subject}')"
 
+endpoint += "&$select=subject,bodyPreview,start,end"
+endpoint += "&$orderby=start/dateTime asc"
+# https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http
+
