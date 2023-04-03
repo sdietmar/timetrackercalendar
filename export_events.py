@@ -84,3 +84,8 @@ for event in events:
         str(int(int(elapsed_time.total_seconds())/60)) + "; " +
         f"{int(hours)} hours, {int(minutes)} minutes"
     )
+
+print("")
+hours, remainder = divmod(int(total_time.total_seconds()), 3600)
+minutes, _ = divmod(remainder, 60)
+print(f"Total time: {int(hours)} hours, {int(minutes)} minutes")
