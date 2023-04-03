@@ -44,3 +44,22 @@ endpoint += "&$select=subject,bodyPreview,start,end"
 endpoint += "&$orderby=start/dateTime asc"
 # https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http
 
+events = []
+# make get requests till there are no more events
+while endpoint:
+    #print("endpoint: ", endpoint[-40:])
+    # Make a GET request to the Microsoft Graph API to retrieve the event
+    response = requests.get(endpoint, headers=headers)
+
+    if response.status_code != 200:
+        raise Exception("Failed to retrieve event: " + response.text)
+
+    #print("successfully received "+ str(len(response.json()['value'])) + " events")
+    events += response.json()['value']
+
+    endpoint = response.json().get("@odata.nextLink") # returns link or 'None'
+
+
+print("Received a total of "+ str(len(events)) + " events")
+# print(json.dumps(events, indent=2))
+print("")
