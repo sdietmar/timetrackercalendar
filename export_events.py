@@ -25,3 +25,18 @@ CAL_ID = config['calendar']['calId']
 endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events?'
 
 
+# Get the event subject/titel from the command line
+if len(sys.argv) < 2:
+    # no title - so show everything in past month
+    # TODO: calc start and endtime of the (current month or if 1st-3rd then of the last month (with buffer)
+    # Get the current system time
+    now = datetime.now(timezone.utc)
+    # standardize to UTC.. so it is always true. since we always create it from NOW.
+    start_time = now.isoformat()
+    #end_time = (now + datetime.timedelta(hours=2)).isoformat()
+    #endpoint += "and start/dateTime ge '2023-04-01T00:00'"
+
+else:
+    subject = sys.argv[1]
+    endpoint += f"$filter=startsWith(subject,'{subject}')"
+
