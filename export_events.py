@@ -40,7 +40,7 @@ else:
     subject = sys.argv[1]
     endpoint += f"$filter=startsWith(subject,'{subject}')"
 
-endpoint += "&$select=subject,bodyPreview,start,end"
+endpoint += "&$select=subject,location,bodyPreview,start,end"
 endpoint += "&$orderby=start/dateTime asc"
 # https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http
 
@@ -81,8 +81,7 @@ for event in events:
         event["subject"] + "; " +
         event["bodyPreview"] + "; " +
         event["start"]["dateTime"][0:10] + "; " +
-        str(int(int(elapsed_time.total_seconds())/60)) + "; " +
-        f"{int(hours)} hours, {int(minutes)} minutes"
+        event["location"]["displayName"].strip() + "; " +
     )
 
 print("")
