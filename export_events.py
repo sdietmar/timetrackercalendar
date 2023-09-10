@@ -76,12 +76,14 @@ for event in events:
     hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
     minutes, _ = divmod(remainder, 60)
     total_time += elapsed_time
+    body_preview_cleaned = ' '.join(event["bodyPreview"].splitlines())[:50]
 
     print(
         event["subject"] + "; " +
         event["bodyPreview"] + "; " +
         event["start"]["dateTime"][0:10] + "; " +
         event["location"]["displayName"].strip() + "; " +
+        body_preview_cleaned + "; "
     )
 
 print("")
