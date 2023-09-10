@@ -36,25 +36,28 @@
 8. marvel at the calendar that is now even busier than before
 <img src="screenshots/calendar_final.png" width="400">
 
-## Export
+## Export logged Events
 
-1. run `python export_events.py timetrackerapp`
+1. run `python export_events.py --subject timetrackerapp --months all	`
 2. receive output in console (or pipe to whatever/whereever you want)
 ```bash
 account connected!
-Received a total of 7 events
+Received a total of 8 events
 
-timetrackerapp; bug fix UTC and improve auth by providing gui window for device_code; 2023-02-14; 34; 0 hours, 34 minutes
-timetrackerapp; added streamdeck support; 2023-02-17; 122; 2 hours, 2 minutes
-timetrackerapp; working on auth session renew; 2023-03-05; 185; 3 hours, 5 minutes
-timetrackerapp; msal token refresh cache. commit + github; 2023-03-19; 8; 0 hours, 8 minutes
-timetrackerapp; ; 2023-04-01; 120; 2 hours, 0 minutes
-timetrackerapp; bettergui layout (multiline); prepopulate this field; save on ENTER; 2023-04-02; 62; 1 hours, 2 minutes
-timetrackerapp; ; 2023-04-03; 120; 2 hours, 0 minutes
+2023-02-14;  0h34; timetrackerapp; ; bug fix UTC and improve auth by providing gui wind;
+2023-02-17;  2h02; timetrackerapp; ; added streamdeck support;
+2023-03-05;  3h05; timetrackerapp; ; working on auth session renew;
+2023-03-19;  0h08; timetrackerapp; ; msal token refresh cache. commit + github;
+2023-04-01;  2h00; timetrackerapp; ; ;
+2023-04-02;  1h02; timetrackerapp; ; bettergui layout (multiline); prepopulate this fie;
+2023-04-03;  2h43; timetrackerapp; ; export events csv style;
+2023-09-10;  2h00; timetracker; ; ;
 
-Total time: 10 hours, 52 minutes
+Total time: 13 hours, 36 minutes
+
 ```
 3. run `python export_events.py` without arguments to get entire list of events (could be a long list)
+4. run `python export_events.py --help` for command line options and usage
 
 ## Usage with Streamdeck
 
