@@ -1,10 +1,12 @@
 import requests
 from datetime import datetime, timedelta, timezone
+import calendar
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
 import json
 import PySimpleGUI as sg
 import sys
+import argparse
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -25,24 +27,51 @@ CAL_ID = config['calendar']['calId']
 endpoint = f'https://graph.microsoft.com/v1.0/me/calendars/{CAL_ID}/events?'
 
 
-# Get the event subject/titel from the command line
-if len(sys.argv) < 2:
-    # no title - so show everything in past month
-    # TODO: calc start and endtime of the (current month or if 1st-3rd then of the last month (with buffer)
-    # Get the current system time
-    now = datetime.now(timezone.utc)
-    # standardize to UTC.. so it is always true. since we always create it from NOW.
-    start_time = now.isoformat()
-    #end_time = (now + datetime.timedelta(hours=2)).isoformat()
-    #endpoint += "and start/dateTime ge '2023-04-01T00:00'"
+# Get the event subject/title from the command line
+# Create an ArgumentParser object
+parser = argparse.ArgumentParser(description='Export events from calendar. filter by subject and limit the daterange')
 
+# Define the command-line arguments
+parser.add_argument('--subject', default='', help='Filter by subject')
+parser.add_argument('--months', default='this', choices=['this', 'last', 'all'], help='Date filter for months')
+
+# Parse the command-line arguments
+args = parser.parse_args()
+
+# subject filter
+endpoint += f"$filter=startsWith(subject,'{args.subject}')"
+
+# time span filter
+timespan = args.months
+today = datetime.now()
+
+# Determine the start and end dates based on the "this" or "last" argument
+if timespan == "this":
+    start_date = today.replace(day=1)
+    _, last_day = calendar.monthrange(today.year, today.month)
+    end_date = today.replace(day=last_day)
+elif timespan == "last":
+    # Calculate the first day of the last month
+    last_month = today - timedelta(days=today.day)
+    start_date = last_month.replace(day=1)
+    _, last_day = calendar.monthrange(last_month.year, last_month.month)
+    end_date = last_month.replace(day=last_day)
+elif timespan == "all":
+    print(timespan)
 else:
-    subject = sys.argv[1]
-    endpoint += f"$filter=startsWith(subject,'{subject}')"
+    print("Invalid value for the second argument. Use 'this', 'last' or 'all'.")
+    sys.exit(1)
+
+if timespan != 'all':
+    endpoint += f" and start/dateTime ge '{start_date.strftime('%Y-%m-%d')}T00:00:00Z'"
+    endpoint += f" and end/dateTime le '{end_date.strftime('%Y-%m-%d')}T23:59:59Z'"
+
 
 endpoint += "&$select=subject,location,bodyPreview,start,end"
 endpoint += "&$orderby=start/dateTime asc"
 # https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http
+
+print(endpoint)
 
 events = []
 # make get requests till there are no more events
