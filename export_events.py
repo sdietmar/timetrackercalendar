@@ -79,10 +79,9 @@ for event in events:
     body_preview_cleaned = ' '.join(event["bodyPreview"].splitlines())[:50]
 
     print(
-        event["subject"] + "; " +
-        event["bodyPreview"] + "; " +
         event["start"]["dateTime"][0:10] + "; " +
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
+        event["subject"].strip() + "; " +
         event["location"]["displayName"].strip() + "; " +
         body_preview_cleaned + "; "
     )
