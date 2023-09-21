@@ -49,7 +49,7 @@ today = datetime.now()
 if timespan == "this":
     start_date = today.replace(day=1)
     _, last_day = calendar.monthrange(today.year, today.month)
-    end_date = today.replace(day=last_day)
+    end_date = today
 elif timespan == "last":
     # Calculate the first day of the last month
     last_month = today - timedelta(days=today.day)
@@ -57,7 +57,9 @@ elif timespan == "last":
     _, last_day = calendar.monthrange(last_month.year, last_month.month)
     end_date = last_month.replace(day=last_day)
 elif timespan == "all":
-    print(timespan)
+    #safeguard
+    start_date = today
+    end_date = today
 else:
     print("Invalid value for the second argument. Use 'this', 'last' or 'all'.")
     sys.exit(1)
