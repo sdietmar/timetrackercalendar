@@ -73,7 +73,7 @@ endpoint += "&$select=subject,location,bodyPreview,start,end"
 endpoint += "&$orderby=start/dateTime asc"
 # https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http
 
-print(endpoint)
+# print(endpoint)
 
 events = []
 # make get requests till there are no more events
@@ -114,10 +114,10 @@ for event in events:
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
         event["subject"].strip() + "; " +
         event["location"]["displayName"].strip() + "; " +
-        body_preview_cleaned + "; "
+        body_preview_cleaned
     )
 
 print("")
 hours, remainder = divmod(int(total_time.total_seconds()), 3600)
 minutes, _ = divmod(remainder, 60)
-print(f"Total time: {int(hours)} hours, {int(minutes)} minutes")
+print(f"Invested time: {int(hours)} hours, {int(minutes)} minutes")
