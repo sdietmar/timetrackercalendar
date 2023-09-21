@@ -113,7 +113,7 @@ for event in events:
         event["start"]["dateTime"][0:10] + "; " +
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
         event["subject"].strip() + "; " +
-        event["location"]["displayName"].strip() + "; " +
+        event["location"]["displayName"].strip()[:24].ljust(24) + "; " +
         body_preview_cleaned
     )
 
