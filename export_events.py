@@ -121,3 +121,23 @@ print("")
 hours, remainder = divmod(int(total_time.total_seconds()), 3600)
 minutes, _ = divmod(remainder, 60)
 print(f"Invested time: {int(hours)} hours, {int(minutes)} minutes")
+
+# how many workdays in range?
+workdays = 0
+current_date = start_date
+# Define a list of weekend days (0 = Monday, 1 = Tuesday, ..., 6 = Sunday)
+weekend_days = [5, 6]  # Saturday (5) and Sunday (6)
+while current_date <= end_date:
+    # Check if the current day is not a weekend day (not in weekend_days)
+    if current_date.weekday() not in weekend_days:
+        workdays += 1
+    current_date += timedelta(days=1)
+
+# expected worked hours
+exp_hrs_per_day = 38.5 / 5
+exp_hrs_total = workdays * exp_hrs_per_day
+hours, remainder = divmod(exp_hrs_total, 1)
+minutes = int(remainder*60)
+
+print(f"Expected time: {int(hours)} hours, {int(minutes)} minutes")
+print(f"{workdays} workdays between {start_date.strftime('%Y-%m-%d')} and {end_date.strftime('%Y-%m-%d')}")
