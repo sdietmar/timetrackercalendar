@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime, timedelta, timezone
+import tzlocal
 import calendar
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import configparser
@@ -97,12 +98,19 @@ print("")
 
 total_time = timedelta()
 
+# Get the local timezone
+local_timezone = tzlocal.get_localzone()
+
 for event in events:
-    # Calculate the elapsed time since the event start
+    #get time and adjust to local time
     start_time_notz = datetime.strptime(event["start"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0")
-    start_time = start_time_notz.replace(tzinfo=timezone.utc)
+    start_time_e = start_time_notz.replace(tzinfo=local_timezone)
+    start_time = start_time_e + start_time_e.utcoffset()
     end_time_notz = datetime.strptime(event["end"]["dateTime"], "%Y-%m-%dT%H:%M:%S.%f0")
-    end_time = end_time_notz.replace(tzinfo=timezone.utc)
+    end_time_e = end_time_notz.replace(tzinfo=local_timezone)
+    end_time = end_time_e + end_time_e.utcoffset()
+
+    # Calculate the elapsed time since the event start
     elapsed_time = end_time - start_time
     hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
     minutes, _ = divmod(remainder, 60)
@@ -110,7 +118,8 @@ for event in events:
     body_preview_cleaned = ' '.join(event["bodyPreview"].splitlines())[:50]
 
     print(
-        event["start"]["dateTime"][0:10] + "; " +
+        f"{start_time.strftime('%Y-%m-%d; %H:%M')};" +
+        (days_t + f"{end_time.strftime('%H:%M')}; ").rjust(10) +
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
         event["subject"].strip() + "; " +
         event["location"]["displayName"].strip()[:24].ljust(24) + "; " +
