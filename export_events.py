@@ -97,6 +97,9 @@ print("Received a total of "+ str(len(events)) + " events")
 # print(json.dumps(events, indent=2))
 print("")
 
+print("   date   ; start;  end; duration; location                      ; description                                                     ; km start; end; distance")
+
+
 total_time = timedelta()
 
 # Get the local timezone
