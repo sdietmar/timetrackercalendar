@@ -8,6 +8,7 @@ import json
 import PySimpleGUI as sg
 import sys
 import argparse
+import re
 
 # load config file (offloaded for privacy reasons)
 config = configparser.ConfigParser()
@@ -121,14 +122,24 @@ for event in events:
     if days == 0: days_t = ''
     else: days_t = f"{days}:"
 
+    # km
+    km_t = ""
+    if event["location"]["displayName"].strip()[:5] == "Auto:":
+        # Use regular expressions to extract the values
+        matches = re.match(r'(\d+)km [\-–] (\d+)km = (\d+)km', body_preview_cleaned)
+        if matches:
+            start_km = int(matches.group(1))
+            end_km = int(matches.group(2))
+            distance_km = int(matches.group(3))
+            km_t = f"; {start_km}; {end_km}; {distance_km}"
+
 
     print(
         f"{start_time.strftime('%Y-%m-%d; %H:%M')};" +
         (days_t + f"{end_time.strftime('%H:%M')}; ").rjust(10) +
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
-        event["subject"].strip() + "; " +
-        event["location"]["displayName"].strip()[:24].ljust(24) + "; " +
-        body_preview_cleaned
+        body_preview_cleaned.ljust(70) +
+        km_t
     )
 
 print("")
