@@ -115,7 +115,12 @@ for event in events:
     hours, remainder = divmod(int(elapsed_time.total_seconds()), 3600)
     minutes, _ = divmod(remainder, 60)
     total_time += elapsed_time
-    body_preview_cleaned = ' '.join(event["bodyPreview"].splitlines())[:50]
+
+    # is it another day?
+    days = (end_time.date() - start_time.date()).days
+    if days == 0: days_t = ''
+    else: days_t = f"{days}:"
+
 
     print(
         f"{start_time.strftime('%Y-%m-%d; %H:%M')};" +
