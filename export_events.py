@@ -122,6 +122,14 @@ for event in events:
     if days == 0: days_t = ''
     else: days_t = f"{days}:"
 
+    # prepare body
+    body_preview_cleaned = ' '.join(event["bodyPreview"].splitlines())[:70].replace(';', ',')
+
+    # print subject only if it is not in the call argument
+    if args.subject == '':
+        subject_text = event["subject"].strip() + "; "
+    else: subject_text = ""
+
     # km
     km_t = ""
     if event["location"]["displayName"].strip()[:5] == "Auto:":
@@ -138,6 +146,8 @@ for event in events:
         f"{start_time.strftime('%Y-%m-%d; %H:%M')};" +
         (days_t + f"{end_time.strftime('%H:%M')}; ").rjust(10) +
         f"{int(hours):>2}h{int(minutes):02}" + "; " +
+        subject_text +
+        event["location"]["displayName"].strip()[:30].ljust(30) + "; " +
         body_preview_cleaned.ljust(70) +
         km_t
     )
