@@ -142,7 +142,7 @@ for event in events:
             start_km = int(matches.group(1))
             end_km = int(matches.group(2))
             distance_km = int(matches.group(3))
-            km_t = f"; {start_km}; {end_km}; {distance_km}"
+            km_t = "; "+ f"{start_km}".rjust(7) + "; " + f"{end_km}".rjust(7) +"; " + f"{distance_km}"
 
 
     print(
